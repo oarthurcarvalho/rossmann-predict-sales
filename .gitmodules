@@ -1,0 +1,6 @@
+[submodule "webapp"]
+	path = webapp
+	url = git@github.com:oarthurcarvalho/webapp-rossmann.git
+[submodule "rossmann-telegram-bot"]
+	path = rossmann-telegram-bot
+	url = git@github.com:oarthurcarvalho/rossmann-telegram-bot.git
