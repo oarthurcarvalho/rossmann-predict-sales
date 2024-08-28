@@ -250,8 +250,45 @@ O melhor conjunto encontrado, após validação cruzada, foi ajustado e aplicado
 
 ### Avaliação do Algoritmo
 
+Com o modelo final definido e os resultados em mãos, é fundamental comunicar essas métricas técnicas de forma acessível ao time de negócios. Compararemos o novo modelo com a baseline previamente utilizada pela equipe e desenvolveremos cenários, tanto otimistas quanto pessimistas, baseados nas métricas do modelo.
 
+Para demonstrar com mais clareza o quão próximo o modelo está dos resultados reais, selecionamos as últimas 6 semanas de dados e somamos o faturamento total de todas as lojas. Realizamos essa análise comparativa tanto para o modelo baseline, utilizado anteriormente, quanto para o novo modelo proposto. O resultado dessa comparação foi
+
+| Sum of Sales    | Baseline (Mean Model) | ML Model       |
+|-----------------|-----------------------|----------------|
+| R$ 289.571.750  | R$ 324.608.344         | R$ 283.041.088 |
+
+Essa comparação evidencia que o uso de um modelo de machine learning é justificado em relação à projeção da receita futura, pois o desvio do modelo foi significativamente menor do que o do baseline
+
+Com base no erro do modelo, podemos estimar cenários para cada loja com o intuito de facilitar a análise por parte da equipe de negócio. Abaixo alguns temos o exemplo de algumas lojas.
+
+| Store | Sales       | ML Predict  | Worst Scenario | Best Scenario | MAE     | MAPE |
+|-------|-------------|-------------|----------------|---------------|---------|------|
+| 251   | R$ 690.220,0 | R$ 650.210,0 | R$ 648.380,0   | R$ 652.040,0  | R$ 1.830,0 | 0.09 |
+| 192   | R$ 487.998,0 | R$ 400.844,0 | R$ 398.374,0   | R$ 403.313,0  | R$ 2.469,0 | 0.18 |
+| 178   | R$ 370.073,0 | R$ 423.960,0 | R$ 352.799,0   | R$ 354.543,0  | R$ 871,0   | 0.08 |
+| 34    | R$ 309.543,0 | R$ 285.755,0 | R$ 285.083,0   | R$ 286.428,0  | R$ 672,0   | 0.07 |
 
 ### Deploy do Modelo
 
+Com o modelo escolhido, treinado e com bom desempenho, o próximo passo foi colocá-lo em produção. Decidimos disponibilizar as previsões de vendas de forma online, utilizando o aplicativo de mensagens Telegram.
+
+A ideia é que o Assistente do Gerente Regional tenha flexibilidade de acessar estes dados de qualquer lugar, trabalhe esta informação em diferentes contextos. Isso permitirá que ele processe e analise as predições e leve insights valiosos para o CFO, contribuindo para a tomada de decisão.
+
+Para viabilizar essa funcionalidade, desenvolvemos duas APIs: a API que fornecerá as previsões de faturamento (handler.py) e a API do telegram, para a interface com o usuário.
+
+#### API Previsão
+Essa API é responsável por fornecer a previsão de vendas baseada nos atributos da loja.
+
+O processo funciona da seguinte forma: o usuário fornece os atributos da loja para a API, como assortment, store_type, dia da semana, entre outros. O script handler.py carrega o modelo treinado, realiza as transformações e redimensionamentos necessários nos dados e, em seguida, executa a previsão.
+
+A resposta da API inclui o conjunto de dados de entrada em formato JSON, juntamente com o valor previsto de vendas para a(s) loja(s) e dia(s) solicitado(s).
+
+#### API de Mensagens Telegram
+
+Esta API é responsável pela comunicação com o usuário, gerenciando as mensagens de boas-vindas, erros e respostas às solicitações de previsão.
+
+Quando o usuário consulta o ID de uma loja para obter a previsão, o script rossmann-bot.py carrega os atributos da loja que já estão em produção (não sendo mais necessário que o usuário os informe), transforma os dados em JSON e realiza a consulta na API handler.py.
+
+A API handler.py retorna um JSON contendo os dados de entrada junto com o valor previsto das vendas. Por fim, o rossmann-bot.py processa esse JSON, soma as previsões e informa ao usuário, por meio de uma mensagem, o valor total das vendas previstas para as próximas 6 semanas.
 
