@@ -1,4 +1,5 @@
 # Rossmann Sales Forecast
+
 ![Rossmann Store](img/readme_img/rossmann.webp)
 
 A Rossmann é uma das maiores redes de farmácias da Europa, fundada em 1972 na Alemanha. Com mais de 4.000 lojas em diversos países, a empresa se destaca por oferecer uma ampla gama de produtos de saúde e bem-estar. Além da Alemanha, a Rossmann está presente na Polônia, Hungria, Turquia e Albânia. Conhecida por seu compromisso com qualidade e preços acessíveis, a Rossmann é uma escolha popular para consumidores que buscam produtos farmacêuticos e de cuidados pessoais.
@@ -10,6 +11,8 @@ O CFO (Chief Financial Officer) da Rossmann está planejando uma grande reforma 
 ## Planejamento da Solução
 
 A estratégia de solução adotada neste projeto se baseia no método CRISP-DM (Cross Industry Standard Process for Data Mining), uma metodologia amplamente reconhecida e utilizada na ciência de dados. O CRISP-DM é um modelo cíclico e flexível, projetado para a resolução de problemas que envolvem grandes volumes de dados. Ele se destaca por sua capacidade de se adaptar a diferentes contextos e necessidades, permitindo uma abordagem estruturada e iterativa na análise de dados. A metodologia facilita a entrega rápida de valor para os times de negócio, proporcionando uma compreensão aprofundada dos dados e gerando insights acionáveis. A imagem abaixo ilustra uma adaptação do CRISP-DM, destacando suas fases principais e como elas se inter-relacionam para otimizar o processo de mineração de dados e a tomada de decisões estratégicas.
+
+![Rossmann Store](img/readme_img/crisp-dm.png)
 
 A seguir, descrevo cada etapa explicando as premissas adotadas e decisões tomadas com o objetivo de obter o melhor resultado para o problema apresentado.
 
@@ -156,37 +159,59 @@ Para a Análise Bivariada, foram criadas hipóteses sobre o negócio, com o intu
 - ##### H1. Lojas com maior sortimento deveriam vender mais
 **Falsa**. Apesar de ser algo intuitivo a se pensar, os dados indicaram que lojas com sortimento básico ou estendido apresentam vendas maiores às lojas com sortimento extra. 
 
+![Hipótese 1](img/h1.png)
+
 - ##### H2. Lojas com competidores próximo deveriam vender menos
 **Falsa**. Analisando o gráfico de barras podemos notar um decaimento nas vendas a medida que os competidores estão mais longe. Confirmando esta conclusão com a correlação negativa de -0.23, ou seja, quanto maior a distância do concorrente, menor o faturamento da loja.
+
+![Hipótese 2](img/h2.png)
 
 - ##### H3. Lojas com competidores a mais tempo deveriam vender mais
 **Falsa**. A correlação de 0.11 negativo é muito fraca para validarmos esta hipótese. O que vemos nos gráficos de barras e no gráfico de regressão é que o faturamento decai ligeiramente e fica constante após o  35º mês.
 
+![Hipótese 3](img/h3.png)
+
 - ##### H4. Lojas com promoções ativas por mais tempo deveriam vender mais
 **Falsa**. No curto prazo, há um aumento de crescimento das vendas durante as semanas de promoção. No entanto, no longo prazo, nota-se uma leve queda nas vendas após 150 semanas, com uma correlação negativa de 0.029, indicando que promoções prolongadas podem ter um impacto decrescente.
 
+![Hipótese 4](img/h4.png)
+
 - ##### H5. Lojas com mais promoções consecutivas deveriam vender mais
 **Falsa**. O faturamento das duas categorias (Extendida e "Tradicional & Extendida) é próximo até a 35ª semana do ano. Após este marco, as lojas que permanecem com promoções por mais tempo tem uma queda nas vendas 
+
+![Hipótese 5](img/h5.png)
 
 - ##### H6. Lojas abertas durante o feriado de Natal deveriam vender mais
 **Falsa**. O gráfico mostra que, comparado com os outros feriados, as vendas no Natal são mais baixas, principalmente se compara-lo à feriados públicos, que apresentam um volume significativamente maior. 
 
 **Um ponto a ser levantando no próximo ciclo CRISP é, como o dataset tem informações de 2 anos e 7 meses, temos 3 Páscoas e 2 Natais, o que deve interferir esta comparação**
 
+![Hipótese 6](img/h6.png)
+
 - ##### H7. Lojas deveriam vender mais ao longo dos anos.
 **Falsa**. O gráfico sugere uma leve queda nas vendas totais ano após ano. Mesmo considerando que o ano de 2015 não está completo, não há evidências que esta hipótese seja verdadeira.
+
+![Hipótese 7](img/h7.png)
 
 - ##### H8. Lojas deveriam vender mais no segundo semestre do ano.
 **Falsa**. Os dados mostram que as vendas são consistentemente maiores no primeiro semestre, com uma média de vendas superior. Além disso, a análise por semanas revela que, embora haja flutuações, o primeiro semestre se destaca em termos de volume de vendas na maioria das semanas.
 
+![Hipótese 8](img/h8.png)
+
 - ##### H9. Lojas deveriam vender mais depois do dia 10 de cada mês
 **Verdadeira**.  As vendas tendem a ser maiores após o dia 10 de cada mês, como evidenciado pelo volume de vendas mais alto. A correlação negativa entre o dia do mês e as vendas sugere que os consumidores podem estar mais dispostos a gastar após o recebimento de salários ou benefícios, confirmando a hipótese de que as lojas vendem mais após o dia 10.
+
+![Hipótese 9](img/h9.png)
 
 - ##### H10. Lojas deveriam vender menos aos finais de semana.
 **Verdadeira**. A forte correlação negativa entre o dia da semana e as vendas reforça a hipótese de que as vendas são significativamente menores nos finais de semana em comparação aos outros finais de semana
 
+![Hipótese 10](img/h10.png)
+
 - ##### H11. Lojas deveriam vender menos durante feriados escolares.
 **Verdadeira**. O gráfico mostra que as vendas durante feriados escolares são consistentemente mais baixas em comparação com períodos sem feriados escolares, em quase todos os meses. 
+
+![Hipótese 11](img/h11.png)
 
 ### Modelagem de Dados
 
@@ -271,11 +296,13 @@ Com base no erro do modelo, podemos estimar cenários para cada loja com o intui
 
 ### Deploy do Modelo
 
+![Hipótese 1](img/readme_img/deploy_sch.png)
+
 Com o modelo escolhido, treinado e com bom desempenho, o próximo passo foi colocá-lo em produção. Decidimos disponibilizar as previsões de vendas de forma online, utilizando o aplicativo de mensagens Telegram.
 
 A ideia é que o Assistente do Gerente Regional tenha flexibilidade de acessar estes dados de qualquer lugar, trabalhe esta informação em diferentes contextos. Isso permitirá que ele processe e analise as predições e leve insights valiosos para o CFO, contribuindo para a tomada de decisão.
 
-Para viabilizar essa funcionalidade, desenvolvemos duas APIs: a API que fornecerá as previsões de faturamento (handler.py) e a API do telegram, para a interface com o usuário.
+Para viabilizar essa funcionalidade, desenvolvemos duas APIs: a API que fornecerá as previsões de faturamento a API do telegram, para a interface com o usuário.
 
 #### API Previsão
 Essa API é responsável por fornecer a previsão de vendas baseada nos atributos da loja.
@@ -286,9 +313,7 @@ A resposta da API inclui o conjunto de dados de entrada em formato JSON, juntame
 
 #### API de Mensagens Telegram
 
-Esta API é responsável pela comunicação com o usuário, gerenciando as mensagens de boas-vindas, erros e respostas às solicitações de previsão.
+O sistema ilustrado envolve a interação entre um usuário e um bot do Telegram para consultas a dados de lojas. O usuário, através do Telegram, envia o número da loja que deseja consultar. Esse número é capturado pela API Rossmann, que busca os dados correspondentes ao `store_id` e os encaminha para o Handler API, ambos hospedados no Heroku.
 
-Quando o usuário consulta o ID de uma loja para obter a previsão, o script rossmann-bot.py carrega os atributos da loja que já estão em produção (não sendo mais necessário que o usuário os informe), transforma os dados em JSON e realiza a consulta na API handler.py.
-
-A API handler.py retorna um JSON contendo os dados de entrada junto com o valor previsto das vendas. Por fim, o rossmann-bot.py processa esse JSON, soma as previsões e informa ao usuário, por meio de uma mensagem, o valor total das vendas previstas para as próximas 6 semanas.
+No Handler API, o modelo de machine learning é carregado e as transformações necessárias nos dados são realizadas. Após as transformações, o modelo faz as previsões e devolve os resultados à Rossmann API. A Rossmann API então formata a mensagem com as informações previstas e a envia de volta ao usuário pelo bot do Telegram, completando o ciclo de consulta.
 
