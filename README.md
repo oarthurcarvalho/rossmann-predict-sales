@@ -112,7 +112,7 @@ Após a etapa de Feature Engineering, a próxima fase deste projeto é analisar 
 Para esta análise, por ser tratar de um problema de regressão, precisamos conhecer a distribuição da variável resposta `sales`, como estão distribuídas as variaveis numéricas e as variáveis categóricas.
 
 ##### Variável `sales`:
-![distribuíção da variável Sales](imagem_sales.png)
+![distribuíção da variável Sales](img/hist_sales.png)
 
 O gráfico acima expõe que a variável `sales` não possui uma distribuíção normal, pois o histograma possui uma leve assimetria. Se a inspeção visual não for suficiente, podemos utilizar os valores de curtose e de assimetria.
 
@@ -121,16 +121,13 @@ O gráfico acima expõe que a variável `sales` não possui uma distribuíção 
 ##### Variáveis Numéricas:
 O principal objetivo, nesta parte, é olhar para a distribuições de todas as variáveis numérica e identificar atributos que tenha variabilidade. 
 
-![distribuíção da variável Sales](imagem_sales.png)
+![Variáveis Numéricas](img/hist-variaveis.png)
 
 ##### Variáveis Categóricas:
 
 Nos dados trabalhados, há apenas 3 variáveis categóricas: `state_holiday`, `store_type` e `assortment`. A proposta é fazer uma contagem das categorias e gerar os gráficos de densidade para cada uma delas, com o objetivo de identificar possíveis relações entre categorias e o faturamento das lojas.
 
-**Aprendizado: **
-
-
-![distribuíção da variável Sales](imagem_sales.png)
+![Variáveis Categórica](img/cat_variaveis.png)
 
 - ##### `state_holiday`
 
@@ -311,9 +308,12 @@ O processo funciona da seguinte forma: o usuário fornece os atributos da loja p
 
 A resposta da API inclui o conjunto de dados de entrada em formato JSON, juntamente com o valor previsto de vendas para a(s) loja(s) e dia(s) solicitado(s).
 
+Para saber mais, [clique aqui](https://github.com/oarthurcarvalho/webapp-rossmann)
+
 #### API de Mensagens Telegram
 
 O sistema ilustrado envolve a interação entre um usuário e um bot do Telegram para consultas a dados de lojas. O usuário, através do Telegram, envia o número da loja que deseja consultar. Esse número é capturado pela API Rossmann, que busca os dados correspondentes ao `store_id` e os encaminha para o Handler API, ambos hospedados no Heroku.
 
 No Handler API, o modelo de machine learning é carregado e as transformações necessárias nos dados são realizadas. Após as transformações, o modelo faz as previsões e devolve os resultados à Rossmann API. A Rossmann API então formata a mensagem com as informações previstas e a envia de volta ao usuário pelo bot do Telegram, completando o ciclo de consulta.
 
+Para saber mais, [clique aqui](https://github.com/oarthurcarvalho/rossmann-telegram-bot)
